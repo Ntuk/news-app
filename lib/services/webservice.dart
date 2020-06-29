@@ -2,14 +2,26 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:news_app/models/newsArticle.dart';
+import 'package:news_app/utils/constants.dart';
 
 class Webservice {
 
-  Future<List<NewsArticle>> fetchTopHeadlines() async {
-    String url =
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=626a11ec75e64531a31b6789f90d51ca";
+  Future<List<NewsArticle>> fetchHeadlinesByKeyboard(String keyword) async {
 
-    final response = await http.get(url);
+    final response = await http.get(Constants.headlinesFor(keyword));
+
+    if(response.statusCode == 200) {
+      final result = jsonDecode(response.body);
+      Iterable list = result["articles"];
+      return list.map((json) => NewsArticle.fromJSON(json)).toList();
+    } else {
+      throw Exception("Failed to fetch the news");
+    }
+  }
+
+  Future<List<NewsArticle>> fetchTopHeadlines() async {
+
+    final response = await http.get(Constants.TOP_HEADLINES_URL);
     
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
@@ -20,4 +32,5 @@ class Webservice {
       throw Exception("Failed to fetch the news");
     }
   }
+
 }

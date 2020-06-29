@@ -1,26 +1,22 @@
 
 
-
 import 'package:flutter/material.dart';
-import 'package:news_app/viewmodels/newsArticleListViewModel.dart';
-import 'package:provider/provider.dart';
+import 'package:news_app/viewmodels/newsArticleViewModel.dart';
 
 class NewsList extends StatelessWidget {
+
+  final List<NewsArticleViewModel> articles;
+
+  NewsList({this.articles});
 
   @override
   Widget build(BuildContext context) {
 
-    final vm = Provider.of<NewsArticleListViewModel>(context);
-    
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Top News")
-      ),
-      body: ListView.builder(
-        itemCount: vm.articles.length,
+    return ListView.builder(
+        itemCount: articles.length,
         itemBuilder: (context, index) {
 
-          final article = vm.articles[index];
+          final article = articles[index];
 
           return ListTile(
             leading: Container(
@@ -30,9 +26,6 @@ class NewsList extends StatelessWidget {
             title: Text(article.title),
           );
         }
-      )
-    );
-
-
+      );
   }
 }
