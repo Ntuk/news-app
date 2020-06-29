@@ -6,7 +6,6 @@ class NewsArticle {
   final String description;
   final String urlToImage;
   final String url;
-  // TODO: ADD source
 
   // Constructor
   NewsArticle({this.title, this.description, this.urlToImage, this.url});

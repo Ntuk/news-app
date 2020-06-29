@@ -10,13 +10,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: "News",
+      title: "News", 
       home: 
       ChangeNotifierProvider(
-        builder: (_) => NewsArticleListViewModel(),
+        create: (_) => NewsArticleListViewModel(), 
         child: NewsListPage()
       )
     );
+    
   }
 
 }
